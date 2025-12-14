@@ -5,6 +5,14 @@ import logoWI from "./assets/logo_wi.png";
 import logoDC from "./assets/logo_dc.png";
 import logoAGH from "./assets/logo_agh.jpg";
 import logoBIT from "./assets/logo_bit.jpg";
+import gabriela from "./assets/teachers/gabriela.jpg";
+import adam from "./assets/teachers/adam.jpg";
+import karol from "./assets/teachers/karol.jpg";
+import marek from "./assets/teachers/marek.jpg";
+import piotr from "./assets/teachers/piotr.jpg";
+import szymon from "./assets/teachers/szymon.png";
+import bartek from "./assets/teachers/bartek.jpg";
+import tomek from "./assets/teachers/tomek.jpg";
 
 interface Course {
   name: string;
@@ -255,9 +263,7 @@ const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
 };
 
 function App() {
-  const [animatedElements, setAnimatedElements] = useState<Set<string>>(
-    new Set()
-  );
+  const [, setAnimatedElements] = useState<Set<string>>(new Set());
   const [currentGroupIndex, setCurrentGroupIndex] = useState(0);
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 1280
@@ -265,6 +271,7 @@ function App() {
   const [isGroupVisible, setIsGroupVisible] = useState(true);
   const [currentTeamIndex, setCurrentTeamIndex] = useState(0);
   const [isTeamVisible, setIsTeamVisible] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -273,6 +280,10 @@ function App() {
       if (window.innerWidth >= 1250) {
         setIsGroupVisible(true);
         setCurrentGroupIndex(0);
+      }
+      // Close mobile menu when resizing to desktop
+      if (window.innerWidth >= 768) {
+        setIsMobileMenuOpen(false);
       }
     };
 
@@ -346,7 +357,7 @@ function App() {
       name: "Aleksandra Poskróbek",
       role: "Pomysłodawczyni i koordynatorka projektu",
       description:
-        "Studentka IV roku. Współprowadzi wykłady oraz odpowiada za organizację edycji, ich ład i porządek",
+        "Studentka V roku. Współprowadzi wykłady oraz odpowiada za organizację edycji, ich ład i porządek",
       photo: logo,
       quote:
         "Godzina informatyki tygodniowo to zdecydowanie za mało, żeby przygotować się do zdania matury z dobrym wynikiem, który pozwoli dostać się np. na wiele kierunków na AGH",
@@ -355,16 +366,108 @@ function App() {
       name: "Bartosz Wójcik",
       role: "Koordynator projektu",
       description:
-        "Student II roku. Zajmuje się technicznym przygotowaniem edycji, tworzy materiały oraz próbne matury i prowadzi grupy",
-      photo: logo,
+        "Student III roku. Zajmuje się technicznym przygotowaniem edycji, tworzy materiały oraz próbne matury i prowadzi grupy",
+      photo: bartek,
       quote:
         "Wiem, jak wygląda informatyka w wielu szkołach – sam do matury przygotowywałem się na własną rękę będąc na profilu matematyczno-fizycznym i wiem, że to wcale nie jest łatwe działając samemu. Dlatego właśnie wyciągamy pomocną dłoń tym, którzy chcą się rozwijać w tym kierunku, ale po prostu nie mają teraz jak",
     },
+    {
+      name: "Piotr Polański",
+      role: "Koordynator projektu",
+      description:
+        "Student II roku. Prowadzi grupę średniozaawansowaną z Pythona",
+      photo: piotr,
+      quote: "Jest tanio? Jest tanio. Jest dobrze? No, myślę, że tak!",
+    },
+    {
+      name: "Natalia Gaweł",
+      role: "Prowadzący",
+      description:
+        "Studentka I roku. Prowadzi grupę z matematyki do Diamentowego Indeksu AGH",
+      photo: logo,
+      quote: "Placeholder",
+    },
+    {
+      name: "Gabriela Dumańska",
+      role: "Prowadzący",
+      description:
+        "Studentka IV roku. Prowadzi grupę początkującą z Pythona",
+      photo: gabriela,
+      quote: "W moim liceum przygotowania do matury z informatyki koncentrowały się głównie na Excelu i Accessie. Dopiero na dodatkowych zajęciach mogłam rozwinąć umiejętności programistyczne, by poczuć się pewniej na maturze!",
+    },
+    {
+      name: "Szymon Ciesielczyk",
+      role: "Prowadzący",
+      description:
+        "Student II roku. Prowadzi grupę początkującą z C++",
+      photo: szymon,
+      quote: "\"the pain of discipline is temporary but the pain of regret is forever\"",
+    },
+    {
+      name: "Adam Mytnik",
+      role: "Prowadzący",
+      description:
+        "Student V roku. Prowadzi grupę początkującą z C++",
+      photo: adam,
+      quote: "u mnie działa",
+    },
+    {
+      name: "Krzysztof Kopel",
+      role: "Prowadzący",
+      description:
+        "Student III roku. Prowadzi grupę średniozaawansowaną z Pythona",
+      photo: logo,
+      quote:
+        "Nauka informatyki może łączyć przyjemne z pożytecznym, pomagając zarówno przygotować się do matury, jak i nauczyć przydatnego na wielu kierunkach studiów programowania. Wiem z doświadczenia, że w szkołach często nie jest uczona w zrozumiały dla wszystkich sposób. Mam nadzieję, że wraz z innymi członkami zespołu uda nam się to zmienić.",
+    },
+    {
+      name: "Marek Małek",
+      role: "Prowadzący",
+      description:
+        "Student IV roku. Prowadzi grupę średniozaawansowaną z Pythona",
+      photo: marek,
+      quote: "Informatyka w szkole to losowe tematy, które często nie mają nic wspólnego z tym czym faktycznie ta dziedzina się zajmuje. Ja z liceum zapamiętałem zapach papierosów i nietuzinkową prowadzącą z tłuczkiem do bicia kota (pluszowego). Wydaje mi się, że jesteśmy w stanie zaoferować wam coś lepszego C:",
+    },
+    {
+      name: "Karol Więckowiak",
+      role: "Prowadzący",
+      description:
+        "Absolwent. Prowadzi grupę średniozaawansowaną z C++",
+      photo: karol,
+      quote: "N",
+    },
+    {
+      name: "Tomek Głąbek",
+      role: "Prowadzący",
+      description:
+        "Student III roku. Prowadzi grupę zaawansowaną z C++",
+      photo: tomek,
+      quote: "Placeholder",
+    },
+    {
+      name: "Adrian Moćko",
+      role: "Prowadzący",
+      description:
+        "Student X roku. Prowadzi grupę średniozaawansowaną z Pythona",
+      photo: logo,
+      quote: "Placeholder",
+    },
   ];
 
-  const scrollToSection = (sectionId: string) => {
+  const scrollToSection = (
+    sectionId: string,
+    event?: React.MouseEvent<HTMLAnchorElement>
+  ) => {
+    // Prevent default anchor behavior to avoid page jump
+    event?.preventDefault();
     const element = document.getElementById(sectionId);
     element?.scrollIntoView({ behavior: "smooth" });
+    // Close mobile menu after navigation
+    setIsMobileMenuOpen(false);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   // Funkcje do obsługi carousel grup
@@ -455,33 +558,118 @@ function App() {
       <header className="header">
         <nav className="nav">
           <div className="nav-brand">
-            <a onClick={() => scrollToSection("hero")}>
+            <a
+              onClick={(e) => scrollToSection("hero", e)}
+              href="#strona-glowna"
+            >
               <img src={logo} alt="BitMatura Logo" />
             </a>
           </div>
-          <ul className="nav-links">
+
+          {/* Hamburger button dla mobile */}
+          <button
+            className="hamburger-btn"
+            onClick={toggleMobileMenu}
+            aria-label="Toggle menu"
+          >
+            <div className={`hamburger ${isMobileMenuOpen ? "open" : ""}`}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </button>
+
+          {/* Desktop navigation */}
+          <ul className="nav-links desktop-nav">
             <li>
-              <a onClick={() => scrollToSection("about")}>O nas</a>
+              <a onClick={(e) => scrollToSection("about", e)} href="#o-nas">
+                O nas
+              </a>
             </li>
             <li>
-              <a onClick={() => scrollToSection("classes")}>Zajęcia</a>
+              <a onClick={(e) => scrollToSection("classes", e)} href="#zajecia">
+                Zajęcia
+              </a>
             </li>
             <li>
-              <a onClick={() => scrollToSection("groups")}>Grupy</a>
+              <a onClick={(e) => scrollToSection("groups", e)} href="#grupy">
+                Grupy
+              </a>
             </li>
             <li>
-              <a onClick={() => scrollToSection("effects")}>Efekty</a>
+              <a onClick={(e) => scrollToSection("effects", e)} href="#efekty">
+                Efekty
+              </a>
             </li>
             <li>
-              <a onClick={() => scrollToSection("reviews")}>Opinie</a>
+              <a onClick={(e) => scrollToSection("reviews", e)} href="#opinie">
+                Opinie
+              </a>
             </li>
             <li>
-              <a onClick={() => scrollToSection("team")}>Zespół</a>
+              <a onClick={(e) => scrollToSection("team", e)} href="#zespol">
+                Zespół
+              </a>
             </li>
             <li>
-              <a onClick={() => scrollToSection("contact")}>Kontakt</a>
+              <a onClick={(e) => scrollToSection("contact", e)} href="#kontakt">
+                Kontakt
+              </a>
             </li>
           </ul>
+
+          {/* Mobile navigation */}
+          <div className={`mobile-nav ${isMobileMenuOpen ? "open" : ""}`}>
+            <ul className="nav-links mobile-nav-links">
+              <li>
+                <a onClick={(e) => scrollToSection("about", e)} href="#o-nas">
+                  O nas
+                </a>
+              </li>
+              <li>
+                <a
+                  onClick={(e) => scrollToSection("classes", e)}
+                  href="#zajecia"
+                >
+                  Zajęcia
+                </a>
+              </li>
+              <li>
+                <a onClick={(e) => scrollToSection("groups", e)} href="#grupy">
+                  Grupy
+                </a>
+              </li>
+              <li>
+                <a
+                  onClick={(e) => scrollToSection("effects", e)}
+                  href="#efekty"
+                >
+                  Efekty
+                </a>
+              </li>
+              <li>
+                <a
+                  onClick={(e) => scrollToSection("reviews", e)}
+                  href="#opinie"
+                >
+                  Opinie
+                </a>
+              </li>
+              <li>
+                <a onClick={(e) => scrollToSection("team", e)} href="#zespol">
+                  Zespół
+                </a>
+              </li>
+              <li>
+                <a
+                  onClick={(e) => scrollToSection("contact", e)}
+                  href="#kontakt"
+                >
+                  Kontakt
+                </a>
+              </li>
+            </ul>
+          </div>
         </nav>
       </header>
 
@@ -939,8 +1127,8 @@ function App() {
                       window.open("https://knbit.edu.pl", "_blank")
                     }
                   >
-                    <img src={logoBIT} alt="Koło Naukowe BiT" />
-                    <span>Koło Naukowe BiT</span>
+                    <img src={logoBIT} alt="Koło Naukowe BIT" />
+                    <span>Koło Naukowe BIT</span>
                   </button>
                 </div>
               </div>
