@@ -55,10 +55,20 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <script type="module" crossorigin src="/assets/index-C_dmZ01m.js"></script>
+    <script type="module" crossorigin src="/assets/index-CDo8CewV.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-C8sQ5zjE.css">
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      (function() {
+        // Handle 404 redirect from 404.html
+        var redirect = sessionStorage.getItem('redirect');
+        if (redirect) {
+          sessionStorage.removeItem('redirect');
+          history.replaceState(null, null, redirect);
+        }
+      })();
+    </script>
   </body>
 </html>
