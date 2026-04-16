@@ -11,8 +11,7 @@
     "preview": "vite preview",
     "predeploy": "npm run build",
     "add-domain": "echo bitmatura.edu.pl > dist/CNAME",
-    "copy-seo": "copy public\\sitemap.xml dist\\ && copy public\\robots.txt dist\\",
-    "deploy": "npm run add-domain && npm run copy-seo && gh-pages -d dist"
+    "deploy": "npm run add-domain && gh-pages -d dist"
   },
   "dependencies": {
     "@types/react-router-dom": "^5.3.3",
