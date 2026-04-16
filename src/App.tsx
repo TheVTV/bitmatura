@@ -1,5 +1,7 @@
 import "./App.css";
 import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import ReactGA from "react-ga4";
 import logo from "./assets/logo.png";
 import logoWI from "./assets/logo_wi.png";
 import logoDC from "./assets/logo_dc.png";
@@ -262,7 +264,17 @@ const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
   );
 };
 
+const trackSheetDownload = (sheetName: string, fileType: string) => {
+  ReactGA.event({
+    category: "sheet_download",
+    action: `download_${fileType}`,
+    label: sheetName,
+  });
+};
+
 function App() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [, setAnimatedElements] = useState<Set<string>>(new Set());
   const [currentGroupIndex, setCurrentGroupIndex] = useState(0);
   const [windowWidth, setWindowWidth] = useState(
@@ -290,6 +302,43 @@ function App() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Handle URL-based navigation
+  useEffect(() => {
+    const pathname = location.pathname;
+    const sectionMap: { [key: string]: string } = {
+      "/": "hero",
+      "/o-nas": "about",
+      "/zajecia": "classes",
+      "/grupy": "groups",
+      "/efekty": "effects",
+      "/opinie": "reviews",
+      "/zespol": "team",
+      "/kontakt": "contact",
+    };
+
+    const sectionId = sectionMap[pathname];
+    if (sectionId && sectionId !== "hero") {
+      requestAnimationFrame(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          // Scroll element to top of viewport (under navbar)
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+          // Adjust for fixed header by scrolling up a bit more
+          window.scrollBy({ top: -80, behavior: "smooth" });
+        }
+      });
+    } else if (sectionId === "hero" || pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    setIsMobileMenuOpen(false);
+  }, [location]);
+
+  useEffect(() => {
+    if (location.pathname === "/matura") {
+      window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLScMNe7uWT2F8TY_Pj3Vg8l6QJ6slIy8e1KG6lb1SLn27Ptzmw/viewform?usp=dialog";
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -458,12 +507,21 @@ function App() {
     sectionId: string,
     event?: React.MouseEvent<HTMLAnchorElement>
   ) => {
-    // Prevent default anchor behavior to avoid page jump
     event?.preventDefault();
-    const element = document.getElementById(sectionId);
-    element?.scrollIntoView({ behavior: "smooth" });
-    // Close mobile menu after navigation
-    setIsMobileMenuOpen(false);
+    
+    const pathMap: { [key: string]: string } = {
+      "hero": "/",
+      "about": "/o-nas",
+      "classes": "/zajecia",
+      "groups": "/grupy",
+      "effects": "/efekty",
+      "reviews": "/opinie",
+      "team": "/zespol",
+      "contact": "/kontakt",
+    };
+
+    const path = pathMap[sectionId] || "/";
+    navigate(path);
   };
 
   const toggleMobileMenu = () => {
@@ -477,6 +535,12 @@ function App() {
       name: "Excel i Access",
       description:
         "Ponadto dla każdej grupy oferujemy dodatkowe nieobowiązkowe kursy z Excela i Accessa stricte pod maturę.",
+      duration: "",
+    },
+    {
+      name: "Matematyka",
+      description:
+        "Analogicznie do kursów z Excela i Accessa, oferujemy również dodatkowy nieobowiązkowy kurs z matematyki przygotowujący do Konkursu o Diamentowy Indeks AGH.",
       duration: "",
     },
   ];
@@ -554,13 +618,26 @@ function App() {
 
   return (
     <div className="app">
-      {/* Nagłówek i nawigacja */}
+      {/* Nagłówek i nawigacja - ukryty na stronie arkuszy */}
+      {location.pathname !== "/arkusze" && (
       <header className="header">
         <nav className="nav">
           <div className="nav-brand">
             <a
-              onClick={(e) => scrollToSection("hero", e)}
-              href="#strona-glowna"
+              onClick={(e) => {
+                e.preventDefault();
+                // Scroll to hero directly
+                const heroElement = document.getElementById("hero");
+                if (heroElement) {
+                  heroElement.scrollIntoView({ behavior: "smooth", block: "start" });
+                  window.scrollBy({ top: -80, behavior: "smooth" });
+                } else {
+                  // If hero doesn't exist (we're on /arkusze), navigate to home first
+                  navigate("/");
+                }
+              }}
+              href="/"
+              style={{ cursor: "pointer" }}
             >
               <img src={logo} alt="BitMatura Logo" />
             </a>
@@ -672,7 +749,46 @@ function App() {
           </div>
         </nav>
       </header>
+      )}
 
+      {location.pathname === "/arkusze" ? (
+        <section className="sheets-page">
+          <div className="sheets-header">
+            <button 
+              className="back-button"
+              onClick={() => navigate("/")}
+            >
+              ← Powrót do strony głównej
+            </button>
+            <h1>Nasze Arkusze</h1>
+            <p className="sheets-subtitle">
+              Znajdziesz tutaj arkusze z próbnych matur z informatyki organizowanych przez BitMaturaXDiament. Dokładamy wszelkich starań, aby nasze arkusze były jak najbardziej zbliżone do oficjalnych egzaminów maturalnych, zarówno pod względem poziomu trudności, jak i formatu zadań. Jeśli znajdziesz jakiekolwiek błędy lub masz sugestie dotyczące naszych arkuszy, prosimy o kontakt z nami poprzez email: maturaxdiament@agh.edu.pl
+            </p>
+          </div>
+
+          <div className="sheets-grid">
+            {/* Arkusze z możliwością pobrania */}
+            <div className="sheet-box">
+              <h3>Próbna Matura 2025/2026 - 12.12.2025</h3>
+              <div className="sheet-buttons">
+                <a href="/sheets/arkusz2526-01.pdf" download onClick={() => trackSheetDownload("Matura 2025/2026", "arkusz")} className="sheet-btn">Arkusz</a>
+                <a href="/sheets/dane2526-01.zip" download onClick={() => trackSheetDownload("Matura 2025/2026", "dane")} className="sheet-btn">Dane</a>
+                <a href="/sheets/zasadyoceniania2526-01.pdf" download onClick={() => trackSheetDownload("Matura 2025/2026", "zasady")} className="sheet-btn">Zasady Oceniania</a>
+              </div>
+            </div>
+            <div className="sheet-box">
+              <h3>Próbna Matura 2024/2025 - 25.04.2025</h3>
+              <div className="sheet-buttons">
+                <a href="/sheets/arkusz2425-01.pdf" download onClick={() => trackSheetDownload("Matura 2024/2025", "arkusz")} className="sheet-btn">Arkusz</a>
+                <a href="/sheets/dane2425-01.zip" download onClick={() => trackSheetDownload("Matura 2024/2025", "dane")} className="sheet-btn">Dane</a>
+                <a href="/sheets/zasadyoceniania2425-01.pdf" download onClick={() => trackSheetDownload("Matura 2024/2025", "zasady")} className="sheet-btn">Zasady Oceniania</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : (
+        <div className="home-page">
+        <>
       {/* Sekcja główna - Hero */}
       <section id="hero" className="hero">
         <div className="hero-content animate-on-scroll" id="hero-content">
@@ -696,6 +812,12 @@ function App() {
                   onClick={() => scrollToSection("about")}
                 >
                   Dowiedz się więcej
+                </button>
+                <button
+                  className="btn-secondary"
+                  onClick={() => navigate("/arkusze")}
+                >
+                  Nasze Arkusze
                 </button>
               </div>
             </div>
@@ -820,27 +942,22 @@ function App() {
               windowWidth >= 1250 ? "desktop-view" : "mobile-hidden"
             }`}
           >
-            {courses.map((course, index) => (
+            {allGroups.map((course, index) => (
               <div
                 key={index}
                 className={`group-card animate-child animate-delay-${
-                  index + 1
+                  (index % 4) + 1
                 }`}
               >
                 <h3>{course.name}</h3>
                 <p>{course.description}</p>
-                <div className="group-meta">
-                  <span className="group-duration">{course.duration}</span>
-                </div>
+                {course.duration && (
+                  <div className="group-meta">
+                    <span className="group-duration">{course.duration}</span>
+                  </div>
+                )}
               </div>
             ))}
-            <div className={`group-card animate-child animate-delay-5`}>
-              <h3>Excel i Access</h3>
-              <p>
-                Ponadto dla każdej grupy oferujemy dodatkowe nieobowiązkowe
-                kursy z Excela i Accessa stricte pod maturę.
-              </p>
-            </div>
           </div>
 
           {/* Mobile/Tablet view - carousel */}
@@ -853,7 +970,7 @@ function App() {
               className="carousel-arrow carousel-arrow-left"
               onClick={prevGroup}
             >
-              ←
+              {"<"}
             </button>
 
             <div className="group-card-carousel">
@@ -878,7 +995,7 @@ function App() {
               className="carousel-arrow carousel-arrow-right"
               onClick={nextGroup}
             >
-              →
+              {">"}  
             </button>
 
             <div className="carousel-indicators">
@@ -1010,7 +1127,7 @@ function App() {
               onClick={prevTeamSlide}
               disabled={totalTeamSlides <= 1}
             >
-              ←
+              {"<"}
             </button>
 
             <div className="team-carousel">
@@ -1055,7 +1172,7 @@ function App() {
               onClick={nextTeamSlide}
               disabled={totalTeamSlides <= 1}
             >
-              →
+              {">"}  
             </button>
           </div>
 
@@ -1143,6 +1260,9 @@ function App() {
           </div>
         </footer>
       </section>
+        </>
+        </div>
+      )}
     </div>
   );
 }

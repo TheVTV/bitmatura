@@ -67,9 +67,8 @@ body {
   max-width: 100vw; /* Zapobiega przekraczaniu szerokości viewport */
   display: block;
   background: transparent;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
-  height: 100vh;
 }
 
 .container {
@@ -199,7 +198,7 @@ body {
   top: 0;
   left: -100%;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background: rgba(26, 13, 51, 0.98);
   backdrop-filter: blur(10px);
   transition: left 0.3s ease;
@@ -244,12 +243,14 @@ body {
 /* Sekcja Hero */
 .hero {
   min-height: 100vh;
-  height: 100vh;
   display: flex;
   align-items: center;
   background: transparent;
   color: white;
-  padding: 0;
+  padding-top: 80px;
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 0;
   width: 100%;
   position: relative;
 }
@@ -520,7 +521,6 @@ body {
   background: transparent;
   width: 100%;
   min-height: 100vh;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -605,7 +605,6 @@ body {
   background: transparent;
   width: 100%;
   min-height: 100vh;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -657,7 +656,6 @@ body {
   background: transparent;
   width: 100%;
   min-height: 100vh;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -762,7 +760,6 @@ body {
   background: transparent;
   width: 100%;
   min-height: 100vh;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -834,7 +831,6 @@ body {
   background: transparent;
   width: 100%;
   min-height: 100vh;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -941,7 +937,6 @@ body {
   background: transparent;
   width: 100%;
   min-height: 100vh;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -969,7 +964,7 @@ body {
   position: relative;
   max-width: 1400px;
   margin: 2rem auto;
-  padding: 1rem 1rem;
+  padding: 1rem 70px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1162,7 +1157,6 @@ body {
   background: transparent;
   width: 100%;
   min-height: 100vh;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1281,26 +1275,203 @@ body {
 }
 
 /* Responsywność */
-/* Laptopy i większe tablety */
-@media (max-width: 1024px) {
+/* Laptopy typowe 1366x768 */
+@media (max-width: 1366px) {
+  html {
+    font-size: 14px;
+  }
+  
+  .container, .container-limited {
+    padding: 0 1.2rem;
+  }
+  
+  .hero-content {
+    padding: 1rem;
+    gap: 2rem;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.4rem;
+    line-height: 1.1;
+  }
+  
+  .hero-content h2 {
+    font-size: 1.1rem;
+  }
+  
+  .hero-content p {
+    font-size: 0.9rem;
+  }
+  
+  .hero-logo img {
+    max-width: 130px;
+    max-height: 130px;
+  }
+  
+  .about,
+  .effects,
+  .groups,
+  .classes,
+  .reviews,
+  .team,
+  .contact {
+    padding: 3rem 1.5rem;
+  }
+  
+  .about h2,
+  .effects h2,
+  .groups h2,
+  .classes h2,
+  .reviews h2,
+  .team h2,
+  .contact h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .nav {
+    padding: 0.8rem 1.2rem;
+  }
+  
+  .nav-brand h2 {
+    font-size: 1.25rem;
+  }
+  
+  .nav-brand img {
+    height: 32px;
+  }
+  
+  .feature-item,
+  .group-card,
+  .review-item {
+    padding: 1.2rem;
+  }
+  
+  .team-carousel-container {
+    max-width: 1000px;
+    margin: 1rem auto;
+    padding: 1rem 60px;
+    gap: 1rem;
+  }
+  
+  .team-carousel {
+    padding: 0.5rem;
+  }
+  
+  .team-member-card {
+    padding: 1rem;
+    min-height: 350px;
+    max-width: 280px;
+  }
+  
+  .member-photo {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 1rem;
+  }
+  
+  .member-name {
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .member-role {
+    font-size: 0.8rem;
+    margin-bottom: 0.6rem;
+  }
+  
+  .member-description {
+    font-size: 0.8rem;
+    line-height: 1.3;
+    margin-bottom: 0.8rem;
+  }
+  
+  .quote-text {
+    font-size: 0.75rem;
+    line-height: 1.2;
+  }
+}
+
+/* Laptopy średnie (1200px-1024px) */
+@media (max-width: 1200px) {
   html {
     font-size: 15px;
   }
   
-  .container, .container-limited {
-    padding: 0 1.5rem;
-  }
-  
   .hero-content h1 {
-    font-size: 2.8rem;
-  }
-  
-  .section h2 {
     font-size: 2.5rem;
   }
   
+  .section h2,
+  .about h2,
+  .effects h2,
+  .groups h2,
+  .classes h2,
+  .reviews h2,
+  .team h2,
+  .contact h2 {
+    font-size: 2.2rem;
+  }
+}
+
+/* Laptopy i większe tablety */
+@media (max-width: 1024px) {
+  html {
+    font-size: 14px;
+  }
+  
+  .container, .container-limited {
+    padding: 0 1rem;
+  }
+  
+  .hero-content {
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.2rem;
+    line-height: 1.1;
+  }
+  
+  .hero-content h2 {
+    font-size: 1.2rem;
+  }
+  
+  .hero-content p {
+    font-size: 0.95rem;
+  }
+  
+  .hero-logo img {
+    max-width: 120px;
+    max-height: 120px;
+  }
+  
+  .section h2 {
+    font-size: 2rem;
+  }
+  
+  .about h2,
+  .effects h2,
+  .groups h2,
+  .classes h2,
+  .reviews h2,
+  .team h2,
+  .contact h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
   .nav {
-    padding: 1rem 1.5rem;
+    padding: 0.8rem 1rem;
+  }
+  
+  .nav-brand h2 {
+    font-size: 1.3rem;
+  }
+  
+  .nav-brand img {
+    height: 30px;
   }
 }
 
@@ -2008,8 +2179,9 @@ body {
   justify-content: center;
   max-width: 500px;
   margin: 0 auto;
-  padding: 0 60px;
+  padding: 0 70px;
   min-height: 300px;
+  gap: 1rem;
 }
 
 /* Responsive visibility classes */
@@ -2072,6 +2244,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
+  border: none;
+  outline: none;
 }
 
 .carousel-arrow:hover {
@@ -2240,7 +2415,7 @@ body {
   }
 
   .groups-carousel {
-    padding: 0 40px;
+    padding: 0 50px;
   }
 
   .carousel-arrow {
@@ -2251,8 +2426,8 @@ body {
 
   .team-carousel-container {
     margin: 0.5rem auto;
-    padding: 0;
-    gap: 0.25rem;
+    padding: 1rem 50px;
+    gap: 0.5rem;
   }
 
   .team-slide {
@@ -2400,5 +2575,252 @@ body {
 
   .quote-icon {
     font-size: 2rem;
+  }
+}
+/* ==================== SHEETS PAGE STYLES ==================== */
+
+.home-page {
+  background: transparent;
+  color: #e3e3e3;
+}
+
+.home-page .animate-on-scroll {
+  opacity: 1;
+}
+
+.home-page .animate-child {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sheets-page {
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(
+    135deg,
+    rgba(56, 30, 186, 1) 0%,
+    rgba(61, 43, 105, 1) 25%,
+    rgba(69, 25, 74, 1) 50%,
+    rgba(61, 43, 105, 1) 75%,
+    rgba(56, 30, 186, 1) 100%
+  );
+  background-size: 400% 400%;
+  animation: gradientShift 13s ease-in-out infinite;
+  color: #e3e3e3;
+}
+
+.sheets-header {
+  width: 100%;
+  max-width: 1000px;
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.back-button {
+  display: inline-block;
+  margin-bottom: 2rem;
+  padding: 0.6rem 1.2rem;
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+  color: #e3e3e3;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.back-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(100, 100, 120, 0.2);
+  color: #fff;
+}
+
+.sheets-header h1 {
+  font-size: 2.8rem;
+  color: #e3e3e3;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.sheets-subtitle {
+  font-size: 1rem;
+  color: #999;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.sheets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2.5rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.sheet-box {
+  background: rgba(30, 30, 45, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(100, 100, 120, 0.4);
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.sheet-box:hover {
+  background: rgba(30, 30, 45, 0.85);
+  border-color: rgba(120, 120, 140, 0.5);
+  box-shadow: 0 10px 30px rgba(100, 100, 120, 0.15);
+  transform: translateY(-5px);
+}
+
+.sheet-box h3 {
+  font-size: 1.2rem;
+  color: #fff;
+  margin-bottom: 1.8rem;
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.sheet-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+}
+
+.sheet-btn {
+  padding: 0.7rem 1.5rem;
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+  color: #e3e3e3;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.sheet-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(100, 100, 120, 0.2);
+  color: #fff;
+}
+
+/* Responsive dla sheets page */
+@media (max-width: 1024px) {
+  .sheets-page {
+    padding: 3rem 1.5rem;
+  }
+
+  .sheets-header {
+    margin-bottom: 3rem;
+  }
+
+  .sheets-header h1 {
+    font-size: 2.2rem;
+  }
+
+  .sheets-grid {
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sheets-page {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .sheets-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .back-button {
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .sheets-header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .sheets-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .sheets-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .sheet-box {
+    padding: 2rem 1.5rem;
+  }
+
+  .sheet-box h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1.3rem;
+  }
+
+  .sheet-buttons {
+    gap: 0.6rem;
+  }
+
+  .sheet-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sheets-page {
+    padding: 2rem 1rem;
+  }
+
+  .sheets-header {
+    margin-bottom: 2rem;
+  }
+
+  .back-button {
+    margin-bottom: 1.2rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .sheets-header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .sheets-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .sheet-box {
+    padding: 1.5rem 1.2rem;
+  }
+
+  .sheet-box h3 {
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .sheet-buttons {
+    gap: 0.5rem;
+  }
+
+  .sheet-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
   }
 }
